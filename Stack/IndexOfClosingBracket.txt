@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int closeIndex(string str, int n){
+    stack<int> st;
+    st.push(str[n]);
+    int i=n+1;
+    while(!st.empty()){
+        if(str[i]=='[')
+            st.push(str[i++]);
+        else if(str[i]==']'){
+            st.pop();
+            i++;
+        }else{
+            i++;
+        }
+    }
+    return i-1;
+}
+
+int main(){
+    string str="[ABC[23]][89]";
+    int index=16;
+    cout<<closeIndex(str, index);
+}

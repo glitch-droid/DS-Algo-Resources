@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+void delMiddle(stack<int>&st, int n, int curr=0){
+    if(st.empty() || curr==n)
+        return;
+    else{
+        int t=st.top();
+        st.pop();
+        delMiddle(st,n,curr+1);
+        if(curr!=n/2)
+            st.push(t);
+    }
+}
+void show(stack<int> st){
+    while(!st.empty()){
+        cout<<st.top()<<" ";
+        st.pop();
+    }
+    cout<<endl;
+}
+int main(){
+    stack<int> st;
+    st.push(1);
+    st.push(2);
+    st.push(3);
+    st.push(4);
+    show(st);
+    delMiddle(st,st.size());
+    show(st);
+}

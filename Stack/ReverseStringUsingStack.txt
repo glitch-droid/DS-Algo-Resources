@@ -1,0 +1,22 @@
+#include<iostream>
+#include<stack>
+using namespace std;
+
+string revStr(string str){
+    stack<char> st;
+    int i;
+    for(i=0;i<str.size();i++)
+        st.push(str[i]);
+    for(i=0;!st.empty();i++)
+    {
+        str[i]=st.top();
+        st.pop();
+    }
+    return str;
+}
+
+int main(){
+    string arr="GUDU";
+    arr=revStr(arr);
+    cout<<arr;
+}

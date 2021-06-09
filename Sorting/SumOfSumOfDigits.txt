@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+#define ulli unsigned long long int
+using namespace std;
+
+
+int digitSum(int n) {
+   if (n == 0)
+      return 0;
+   else if (n%9 == 0)
+      return 9;
+   else
+      return (n%9);
+}
+
+int findSum(ulli A[], int n, int m, int k){
+    if(k>n)
+        return -1;
+    int B[n];
+    for(int i=0;i<n;i++){
+        B[i]=digitSum(A[i]);
+    }
+    sort(B,B+n);
+    int sum=0;
+    int j;
+   switch(m){
+        case 1:
+               j =n-1;
+                while(k){
+                    sum+=B[j--];
+                    k--;
+                }
+                break;
+        case 2:
+                j= 0;
+                while(k){
+                    sum+=B[j++];
+                    k--;
+                }
+            break;
+   }
+    return sum;
+}
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n,q,k,m;
+    cin>>n>>q;
+    ulli A[n];
+    for(int i=0;i<n;i++)
+        cin>>A[i];
+    while(q--)
+    {
+        cin>>m>>k;
+        cout<<findSum(A,n,m,k)<<endl;
+    }
+}

@@ -1,0 +1,61 @@
+#include<iostream>
+#include<stack>
+using namespace std;
+
+bool checkOpen(char x){
+    switch(x){
+        case '(':
+        case '{':
+        case '[':
+                return true;
+    }
+    return false;
+}
+
+bool matchParen(char x, char y){
+    switch(y){
+        case '}':
+                if(x=='{')
+                    return true;
+                else 
+                    return false;
+        case ']':
+                if(x=='[')
+                    return true;
+                else 
+                    return false;
+        case ')':
+                if(x=='(')
+                    return true;
+                else 
+                    return false;
+    }
+}
+
+bool parenChecker(string str){
+    stack<char> st;
+    for(int i=0;i<str.length();i++){
+        if(checkOpen(str[i]))
+            st.push(str[i]);
+        else{
+            if(matchParen(st.top(),str[i])){
+                st.pop();
+            }else{
+                return false;
+            }
+        }
+    }
+    if(!st.empty())
+        return false;
+    return true;
+}
+
+int main(){
+    string str = "[()]{}{[()()]()";
+    if(parenChecker(str))
+        cout<<"Balanced";
+    else{
+        cout<<"Not Balanced";
+    }
+    return 0;
+}

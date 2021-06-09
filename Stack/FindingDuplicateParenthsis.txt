@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+bool checkDup(string str){
+    stack<char> st;
+    int count;
+    for(char i : str){
+        if(i==')'){
+            count==0;
+            while(st.top()!='('){
+                count++;
+                st.pop();
+            }
+            if(count<1)
+                return false;
+            st.pop();
+        }
+        else{
+            st.push(i);
+        }
+    }
+    return true;
+}
+int main(){
+    string str="(((a+(b)))+(c+d))";
+    if(checkDup(str))
+        cout<<"No Duplicate";
+    else
+        cout<<"Duplicates Found";
+    return 0;
+}

@@ -1,0 +1,56 @@
+#include<stdio.h>
+#include<stdbool.h>
+#include<malloc.h>
+
+long long* solution (long long* A , int n)
+{
+   long long *B = (long long *)malloc(sizeof(long long)*n);
+   int i=0,h=0;
+   long long f,g;
+   while(i<n)
+   {
+      f=-1;
+      g=-1;
+      for(int j=i+1;j<=n-1;j++)
+      {
+         if(A[j]>A[i])
+         {
+            f=j;
+            break;
+         }
+      }
+      for(int k=f+1;k<=n-1;k++)
+      {
+         if(A[k]<A[f])
+         {
+            g=k;
+            break;
+         }
+      }
+      if(f==-1 || g==-1)
+      {
+         B[h++]=-1;
+      }
+      else
+      B[h++]=A[g];
+      
+      i++;
+   }
+   return B;
+}
+
+int main() {
+    int out_n;
+    int N;
+    scanf("%d", &N);
+    out_n=N;
+    int i_A;
+    long long *A = (long long *)malloc(sizeof(long long)*N);
+    for(i_A=0; i_A<N; i_A++)
+    	scanf("%lld", &A[i_A]);
+
+    long long* out_ = solution(A, out_n);
+    printf("%lld", out_[0]);
+    for(int i_out_=1; i_out_<out_n; i_out_++)
+    	printf(" %lld", out_[i_out_]);
+}

@@ -1,0 +1,76 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void swap(int* x, int* y){
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+ 
+// Quick Sort using INT_MAX or INFINITY
+int partition(int A[], int low, int high){
+    int pivot = A[low];
+    int i = low;
+    int j = high;
+ 
+    do {
+        // Increment i as long as elements are smaller/equal to pivot
+        do {i++;} while (A[i] <= pivot);
+ 
+        // Decrement j as long as elements are larger than pivot
+        do {j--;} while (A[j] > pivot);
+ 
+        if (i < j){
+            swap(&A[i], &A[j]);
+        }
+    } while (i < j);
+ 
+    swap(&A[low], &A[j]);
+    return j;
+}
+ 
+void QuickSort(int A[], int low, int high){
+    if (low < high){
+        int j = partition(A, low, high);
+        QuickSort(A, low, j);
+        QuickSort(A, j+1, high);
+    }
+}
+
+int main(){
+	int t;
+	cin>>t;
+	int n,m;
+	while(t--){
+		cin>>m>>n;
+		int boy[m],girl[n];
+		for(int i=0;i<m;i++)
+			cin>>boy[i];
+		for(int i=0;i<n;i++)
+			cin>>girl[i];
+		
+		if(m>n){
+			cout<<"NO"<<endl;
+			continue;
+		}
+
+	sort(boy,boy+m);
+	sort(girl,girl+n);
+
+		int u=0,v=0;
+		bool flag=true;
+		while(u<m && v<n){
+			if(boy[u] > girl[v]){
+				u++;
+				v++;
+			}else{
+				flag=false;
+				cout<<"NO"<<endl;
+				break;
+			}
+		}
+		if(flag==true){
+			cout<<"YES"<<endl;
+		}
+	}
+}

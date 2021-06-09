@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+void makeMin(string seq){
+    stack<int> st;
+    string result=" ";
+    for(int i=0;i<=seq.length();i++){
+        st.push(i+1);
+        if(seq[i]=='I' || i==seq.length()){
+            while(!st.empty()){
+                result= result + to_string(st.top()) + " ";
+                st.pop();
+            }
+        }
+    }
+    cout<<result<<endl;
+}
+
+int main(){
+    string str="IIDDD";
+    makeMin(str);
+}

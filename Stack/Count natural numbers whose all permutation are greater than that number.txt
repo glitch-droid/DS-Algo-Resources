@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int cntNatural(int n){
+    
+    int res=0;
+    int i;
+    for(i=1;i<=9;i++){
+        stack<int> st;
+        if(i<=n){
+            st.push(i);
+            res++;
+        }
+        while(!st.empty()){
+            int top = st.top();
+            st.pop();
+            
+            for(int j=top%10;j<=9;j++){
+                int x= top*10 + j;
+                if(x<=n){
+                    st.push(x);
+                    res++;
+                }
+            }
+        }
+    }
+    return res;
+}
+
+int main(){
+   int num=100;
+   cout<<cntNatural(num);
+}

@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+bool isOperator(char x){
+    switch (x) { 
+                case '+': 
+                case '-': 
+                case '/': 
+                case '*': 
+                return true; 
+  } 
+  return false; 
+}
+
+string preToIn(string infix){
+    std::stack<string> st ;
+    for(int i=0;i<=infix.size()-1;i++){
+        if(isOperator(infix[i])){
+            string a=st.top();  st.pop();
+            string b=st.top();  st.pop();
+            string temp="("+b+infix[i]+a+")";
+            st.push(temp);
+        }else{
+            st.push(string(1, infix[i])); 
+        }
+    }
+    return st.top();
+}
+
+int main(){
+    string arr="ABC*D/+";
+    cout<<preToIn(arr);
+    return 0;
+}

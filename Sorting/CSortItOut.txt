@@ -1,0 +1,53 @@
+#include<iostream>
+#include<unordered_map>
+using namespace std;
+
+void swap(int* x, int* y){
+    int t=*x;
+    *x=*y;
+    *y=t;
+}
+
+void bubbleSort(int A[],int n){
+    int flag;
+    for(int i=0;i<n-1;i++){
+        flag=0;
+        for(int j=0;j<n-1-i;j++){
+            if(A[j]>=A[j+1])
+             {
+                 swap(&A[j],&A[j+1]);
+                 flag=1;
+             }  
+        }
+        if(flag==0)
+            return ;
+    }
+}
+
+void printSortedIndex(int n){
+    int A[n];
+    unordered_map<int,int> umap;
+    for(int i=0;i<n;i++){
+        cin>>A[i];
+        umap.insert(make_pair(A[i],i));
+    }
+    bubbleSort(A,n);
+    for(int i=0;i<n;i++){
+        for(auto x : umap){
+            if(A[i]==x.first && x.second!=-1)
+            {
+                cout<<x.second<<" ";
+                x.second=-1;
+                break;
+            }
+        }
+    }
+}
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+        int n;
+        cin>>n;
+        printSortedIndex(n);
+}

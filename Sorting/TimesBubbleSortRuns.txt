@@ -1,0 +1,33 @@
+#include<iostream>
+using namespace std;
+
+void swap(int* x, int* y){
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+ 
+int bubbleSort(int A[], int n){
+    bool flag = true;
+    int count=0;
+    while(flag!=false){
+        flag=false;
+        count++;
+        for(int i=0;i<n-1;i++){
+            if(A[i]>A[i+1]){
+                swap(&A[i],&A[i+1]);
+                flag=true;
+            }
+        }
+    }
+    return count;
+}
+
+int main(){
+    int n;
+    cin>>n;
+    int A[n];
+    for(int i=0;i<n;i++)
+        cin>>A[i];
+    cout<<bubbleSort(A,n);
+}

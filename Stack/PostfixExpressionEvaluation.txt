@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool isOperator(char x){
+    
+    switch(x){
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+                return true;
+    }
+    return false;
+}
+int res(char arr[]){
+    stack<int> st;
+    
+    for(int i=0;i<7;i++){
+        
+        
+        if(isOperator(arr[i])){
+            int a=st.top(); st.pop();
+            int b=st.top(); st.pop();
+            switch(arr[i]){
+                case '+':   st.push(b+a);break;
+                case '-':   st.push(b-a);break;
+                case '*':   st.push(b*a);break;
+                case '/':   st.push(b/a);break;
+            }
+        }
+        else{
+            int x=arr[i]-'0';
+            st.push(x);
+        }
+    }
+    return st.top();
+}
+int main(){
+    char arr[]="231*+9-";
+    cout<<res(arr);
+}

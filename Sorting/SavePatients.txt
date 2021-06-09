@@ -1,0 +1,57 @@
+#include<iostream>
+using namespace std;
+
+
+void swap(int* x, int* y){
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+ 
+void bubbleSort(int A[], int n){
+    int flag = 0;
+    for (int i=0; i<n-1; i++){
+        for (int j=0; j<n-1-i; j++){
+            if (A[j] > A[j+1]){
+                swap(&A[j], &A[j+1]);
+                flag = 1;
+            }
+        }
+        if (flag == 0){
+            return;
+        }
+    }
+}
+
+
+int curable(int n){
+    int patients[n],vaccines[n];
+    for(int i=0;i<n;i++)
+        cin>>vaccines[i];
+    for(int i=0;i<n;i++)
+        cin>>patients[i];
+    bubbleSort(patients,n);
+    bubbleSort(vaccines,n);
+    int i=0,j=0;
+    while(i!=n && j!=n){
+        if(vaccines[j]>patients[i]){
+            i++;
+            j++;
+        }else{
+            j++;
+        }
+    }
+    if(j!=i)
+        return 0;
+    else
+        return 1;
+}
+
+int main(){
+    int n;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cin>>n;
+    (curable(n)) ? cout<<"Yes" : cout<<"No";
+    return 0;
+}

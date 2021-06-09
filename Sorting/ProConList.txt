@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+#define ulli signed long long int
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    ulli t,n,m;
+    cin>>t;
+    while(t--){
+    
+        ulli favr,angr;
+        cin>>n;
+        m=n;
+        ulli A[n];
+        map<ulli,ulli> mp;
+        int j=0;
+        while(n--){
+            cin>>favr;
+            cin>>angr;
+            mp[favr]=angr;
+            A[j++] = favr;
+        }
+        sort(A,A+m);
+        ulli sum=0;
+        sum+=A[m-1] + A[m-2];
+        for( auto &it : mp){
+            if(it.first != A[m-1] && it.first != A[m-2] ){
+                sum-=it.second;
+            }
+        }
+        cout<<sum<<endl;
+    }
+    return 0;
+}

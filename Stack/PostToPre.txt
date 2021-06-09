@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+bool isOperator(char x){
+    switch(x){
+        case '+' :
+        case '-' :
+        case '/' :
+        case '*' :
+                return true;
+         }
+         return false;
+}
+
+string postToPre(string arr){
+
+    stack<string> st;
+
+    for(int i=0;i<arr.size();i++){
+        if(isOperator(arr[i])){
+            string a=st.top();    st.pop();
+            string b=st.top();    st.pop();
+            string temp=  arr[i]+ b + a  ;
+            st.push(temp);
+        }else{
+            st.push(string(1,arr[i]));
+        }
+    }
+    
+    return st.top();
+}
+
+int main(){
+    string arr="ABC/-AK/L-*";
+    cout<<postToPre(arr);
+    return 0;
+}

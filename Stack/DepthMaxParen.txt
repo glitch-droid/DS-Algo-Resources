@@ -1,0 +1,35 @@
+#include<iostream>
+#include<stack>
+using namespace std;
+
+int findDepth(stack<char> s){
+    int c=0;
+    while(!s.empty()){
+        c++;
+        s.pop();
+    }
+    return c;
+}
+
+int maxDepthParen(string arr){
+    stack<char> st;
+    int max=-32768;
+    for(int i=0;i<arr.size();i++){
+        if(arr[i]=='(')
+        {
+            st.push('(');
+            max=(findDepth(st)>=max) ? findDepth(st) : max;
+        }else if(arr[i]==')' && !st.empty()){
+            st.pop();
+        }else if(st.empty()){
+            return max;
+        }
+    }
+    return max;
+}
+
+int main(){
+    string arr="(((X))(((Y))))";
+    
+    cout<<maxDepthParen(arr);
+}

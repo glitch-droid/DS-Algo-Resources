@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+stack<char> st;
+
+void doIt(string str, int i, int n){
+    if(i>=n)
+        return ;
+    else{
+        doIt(str,i+1,n);
+        if(str[i]!='(' && str[i]!=')')
+            st.push(str[i]);
+    }
+}
+
+char *rmvBraces(string arr){
+    int j=0;
+    doIt(arr,0,arr.length());
+    char *str=new char[arr.length()*sizeof(char)];
+    while(!st.empty()){
+        str[j++]=st.top();
+        st.pop();
+    }
+    return str;
+}
+
+int main(){
+    string arr="a-(b+c)";
+    char * p =rmvBraces(arr);
+    printf("%s",p);
+}
