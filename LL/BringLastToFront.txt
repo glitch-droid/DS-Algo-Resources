@@ -1,0 +1,82 @@
+#include<iostream>
+using namespace std;
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+    cout<<endl;
+}
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+node* rev(node *first)
+{
+ node *q=NULL,*r=NULL;
+ node* p=first;
+
+ while(p)
+ {
+ r=q;
+ q=p;
+ p=p->next;
+ q->next=r;
+ }
+ first=q;
+ return first;
+}
+void lastToFirst(node* first)
+{
+    first=rev(first);
+    node* p=first;
+    node* q=p->next;
+    while(q)
+    {
+        int t=p->data;
+        p->data=q->data;
+        q->data=t;
+        p=q;
+        q=q->next;
+    }
+    first=rev(first);
+    dispLL(first);
+}
+int main()
+{
+    node* head=create();
+    lastToFirst(head);
+}

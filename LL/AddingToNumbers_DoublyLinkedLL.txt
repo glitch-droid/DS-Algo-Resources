@@ -1,0 +1,130 @@
+#include<iostream>
+using namespace std;
+
+class node{
+    public:
+            int data;
+            node* next;
+            node* prev;
+};
+
+void dispLL(node* head)
+{
+    if(!head)
+        return;
+    node* t=head;
+    while(t)
+    {
+        cout<<t->data;
+        t=t->prev;
+    }
+    cout<<endl;
+}
+
+node* create(){
+    node* head=nullptr;
+    node* t;
+    node* p;
+    int n;
+    while(1)
+    {
+        cin>>n;
+        if(n<0)
+            break;
+        t=new node;
+        t->data=n;
+        t->next=nullptr;
+        t->prev=nullptr;
+        if(head==nullptr)
+        {
+            head=t;
+            p=head;
+        }
+        else
+        {
+            t->prev=p;
+            p->next=t;
+            p=t;
+        }
+    }
+    return head;
+}
+node* findSum(node* head1, node* head2){
+    if(head1==nullptr || head2==nullptr){
+        cout<<"Only one number so not possible to add";
+        return nullptr;
+    }
+    node* p=head1;
+    node* q=head2;
+    while(p->next)
+        p=p->next;
+    while(q->next)
+        q=q->next;
+    int carry=0,value;
+    node* temp;
+    node* ptr=nullptr;
+    node* head3=nullptr;
+    while(p!=nullptr && q!=nullptr){
+        value=(p->data)+(q->data);
+        value+=carry;
+        if(value>9){
+            carry=1;
+            value=value%10;;
+        }
+        else{
+            carry=0;
+        }
+        temp=new node;
+        temp->data=value;
+        temp->next=nullptr;
+        temp->prev=nullptr;
+        if(head3==nullptr)
+        {
+            head3=temp;
+            ptr=head3;
+        }
+        else{
+            temp->prev=ptr;
+            ptr->next=temp;
+            ptr=temp;
+        }
+        p=p->prev;
+        q=q->prev;
+    }
+    node* t=(p)?p:q;
+    while(t){
+        value=t->data;
+        value+=carry;
+        if(value>9){
+            carry=1;
+            value=value%10;;
+        }
+        else{
+            carry=0;
+        }
+        temp=new node;
+        temp->data=value;
+        temp->next=nullptr;
+        temp->prev=ptr;
+        ptr->next=temp;
+        ptr=temp;
+        t=t->prev;
+    }
+    if(carry==1){
+        temp=new node;
+        temp->data=1;
+        temp->next=nullptr;
+        temp->prev=ptr;
+        ptr->next=temp;
+        ptr=temp;
+    }
+    head3=ptr;
+    return head3;
+}
+int main()
+{
+    node* h=create();
+    node* g=create();
+    node* r=findSum(h,g);
+    dispLL(r);
+}

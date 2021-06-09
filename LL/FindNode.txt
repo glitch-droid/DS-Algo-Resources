@@ -1,0 +1,80 @@
+#include<iostream>
+using namespace std;
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+}
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+
+node* rev(node* first)
+{
+    node* p=first;
+    node* q=nullptr;
+    node* r=nullptr;
+    while(p)
+    {
+        r=q;
+        q=p;
+        p=p->next;
+        q->next=r;
+    }
+    first=q;
+    return first;
+}
+
+void findNode(node* first, int n, int m)
+{
+    node* p=first;
+    for(int i=0;i<n;i++)
+        p=p->next;
+    p->next=nullptr;
+    first=rev(first);
+    p=first;
+    for(int i=0;i<=m;i++)
+        p=p->next;
+    cout<<p->data;
+}
+
+int main()
+{
+    node* h=create();
+    findNode(h,7,5);
+}

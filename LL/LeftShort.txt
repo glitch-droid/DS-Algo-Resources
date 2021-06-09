@@ -1,0 +1,91 @@
+#include <iostream>
+#include <unordered_map> 
+using namespace std;
+
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+    cout<<endl;
+}
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+
+node* leftShort(node* head)
+{
+    unordered_map<int, int> H;
+    node* q=head;
+    node* p=q->next;
+    int pos=1;
+    while(p)
+    {
+        if(q->data>p->data)
+        {
+            H[pos++]=p->data;
+        }
+        q=p;
+        p=p->next;
+    }
+    int i=1;
+    q=head;
+    p=q->next;
+    while(p)
+    {
+        if(p->data==H[i])
+        {
+            i++;
+            q->next=p->next;
+            p->next=nullptr;
+            p=q->next;
+        }
+        q=p;
+        p=p->next;
+        if(i>pos)
+                break;
+    }
+    return head;
+}
+
+int main()
+{
+    node* f=create();
+    f=leftShort(f);
+    dispLL(f);
+    return 0;
+}

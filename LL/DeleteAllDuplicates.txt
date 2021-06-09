@@ -1,0 +1,85 @@
+#include<iostream>
+using namespace std;
+
+class node{
+    public:
+            int data;
+            node* next;
+            node* prev;
+};
+
+void dispLL(node* head)
+{
+    if(!head)
+        return;
+    node* t=head;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+    cout<<endl;
+}
+
+node* create(){
+    node* head=nullptr;
+    node* t;
+    node* p;
+    int n;
+    while(1)
+    {
+        cin>>n;
+        if(n<0)
+            break;
+        t=new node;
+        t->data=n;
+        t->next=nullptr;
+        t->prev=nullptr;
+        if(head==nullptr)
+        {
+            head=t;
+            p=head;
+        }
+        else
+        {
+            t->prev=p;
+            p->next=t;
+            p=t;
+        }
+    }
+    return head;
+}
+node* deleteNode(node* head, int k)
+{
+    if(head==nullptr)
+        return nullptr;
+    node* p=head;
+    node* q;
+    while(p)
+    {
+        if(p->data==k && p==head){
+            head=p->next;
+            head->prev=nullptr;
+            p->next=nullptr;
+            p=head;
+        }
+        else if(p->data==k && p!=head){
+            q->next=p->next;
+            p->next->prev=q;
+            p->next=nullptr;
+            p->prev=nullptr;
+            p=q->next;
+        }
+        else{
+        q=p;
+        p=p->next;
+        }
+    }
+    return head;
+}
+int main()
+{
+    node* h=create();
+    h=deleteNode(h,10);
+    dispLL(h);
+}

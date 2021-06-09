@@ -1,0 +1,64 @@
+#include<iostream>
+using namespace std;
+
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+
+
+int main()
+{
+    node* head=create();
+    node* p=nullptr;
+    node* s=head;
+    node* f=s->next;
+    
+    while(f && f->next)
+    {
+        p=s;
+        s=s->next;
+        f=f->next->next;
+    }
+    
+    p->next=s->next;
+    s->next=nullptr;
+    delete s;
+    
+    while(head)
+    {
+        cout<<head->data<<" ";
+        head=head->next;
+    }
+    
+}

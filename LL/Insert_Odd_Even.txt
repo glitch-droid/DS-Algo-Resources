@@ -1,0 +1,117 @@
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+}
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+
+node* alterList(node* a, node* b)
+{
+    unordered_map<int,int> H;
+    unordered_map<int,int> G;
+    node* p=a;
+    node* q=b;
+    int max;
+    while(q!=nullptr && p!=nullptr)
+    {
+        if(p->data<q->data)
+        {
+            p=p->next;
+        }
+        else if(p->data>q->data)
+        {
+            q=q->next;
+        }
+        else
+        {
+            H[p->data]=10;
+            max=p->data;
+            p=p->next;
+            q=q->next;
+        }
+    }
+    node* first=nullptr;
+    node* t;
+    node* k;
+    for(int i=1;i<=max;i+=2)
+    {
+        if(H[i]==10)
+        {
+            t=new node;
+            t->data=i;
+            t->next=nullptr;
+            if(first==nullptr)
+            {
+                first=t;
+                k=first;
+            }
+            else
+            {
+                k->next=t;
+                k=t;
+            }
+        }
+    }
+    for(int i=2;i<=max;i+=2)
+    {
+        if(H[i]==10)
+        {
+            t=new node;
+            t->data=i;
+            t->next=nullptr;
+            k->next=t;
+            k=t;
+        }
+    }
+    return first;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    node* h1=create();
+    node* h2=create();
+    node* f=alterList(h1,h2);
+    dispLL(f);
+    
+}

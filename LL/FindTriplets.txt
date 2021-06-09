@@ -1,0 +1,72 @@
+#include<iostream>
+using namespace std;
+
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+bool findTriplets(node* a, node* b, node*c, int k)
+{
+    node* p=a;
+    node* q;
+    node* r;
+    while(p)
+    {
+        q=b;
+        r=c;
+        while(q && r)
+        {
+            int sum=p->data+q->data+r->data;
+            if(sum==k)
+            {
+                cout<<"TripetsExist : "<<p->data<<" "<<q->data<<" "<<r->data<<endl;
+                return true;
+            }
+            else if(sum<k)
+                q=q->next;
+            else
+                r=r->next;
+        }
+        p=p->next;
+    }
+    cout<<"No triplets";
+    return false;
+}
+int main()
+{
+    node* h1=create();
+    node* h2=create();
+    node* h3=create();
+    int sum=70;
+    findTriplets(h1,h2,h3,sum);
+}

@@ -1,0 +1,102 @@
+#include<iostream>
+using namespace std;
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+    cout<<endl;
+}
+node* create()
+{
+   int n;
+   node* first=nullptr;node* t;node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+
+void ha(node* head, int* arr)
+{
+    node* p=head;
+    for(int i=0;i<10;i++)
+        arr[i]=0;
+    while(p)
+    {
+        int m=p->data;
+        while(m>=0)
+        {
+            if(m==0 && p->data==0)
+            {
+                arr[m]++;
+                m=-1;
+            }
+            else if (m!=0 && p->data!=0)
+            {
+                arr[m%10]++;
+                m=m/10;
+            }
+            else
+                m=-1;
+        }
+        p=p->next;
+    }
+}
+bool matchNumber(node* head1, node* head2)
+{
+    if(head1==nullptr || head2==nullptr)
+        return false;
+    int A[10],B[10];
+    ha(head1,A);
+    ha(head2,B);
+    int flag=0;
+    for(int i=0;i<10;i++)
+    {
+        if(A[i]!=B[i])
+        {
+            flag=1;
+            break;
+        }
+    }
+    if(flag==1)
+        return false;
+    return true;
+}
+int main()
+{
+    node* h1=create();
+    node* h2=create();
+    bool b=matchNumber(h1,h2);
+    if(b)
+        cout<<"true";
+    else
+        cout<<"false";
+    return 0;
+}

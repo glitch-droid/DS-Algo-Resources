@@ -1,0 +1,89 @@
+#include<iostream>
+using namespace std;
+
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+
+
+void display(node* p)
+{
+    node* t=p;
+    do
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }while(t);
+    cout<<endl;
+}
+int dig(node* p)
+{
+    node* t=p;
+    int m=0;
+    while(t)
+    {
+        m++;
+        t=t->next;
+    }
+    return m;
+}
+void pairs(node* first, int s, int m)
+{
+    cout<<"Pairs with Sum of "<<s<<" are : \n";
+    node* p=first;
+    node* t;
+    for(int i=1;i<=m-1;i++)
+    {
+        t=p->next;
+        while(t)
+        {
+            if((p->data + t->data)==s)
+            {
+                cout<<p->data<<" "<<t->data<<endl;
+                break;
+            }
+            t=t->next;
+        }
+        p=p->next;
+    }
+}
+
+int main()
+{
+    node* h=create();
+    int sum;
+    cin>>sum;
+    int n=dig(h);
+    pairs(h,sum,n);
+}

@@ -1,0 +1,72 @@
+#include<iostream>
+#include <string.h>
+using namespace std;
+
+class node
+{
+    public:
+            char data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+    cout<<endl;
+}
+node* create()
+{
+   char n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n=='!')
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+
+node* removeString(node* head, string str)
+{
+    if(head==nullptr)
+        return head;
+    node* temp=head;
+    head->next=removeString(head->next,str);
+    int pos=1;
+    while(temp!=nullptr && pos<=str.length() && str[pos-1]==temp->data)
+    {
+        pos++;
+        temp=temp->next;
+    }
+    return (pos==str.length()+1)?temp:head;
+    
+}
+int main()
+{
+    node* h=create();
+    string str="bc";
+    h=removeString(h,str);
+    dispLL(h);
+    return 0;
+}

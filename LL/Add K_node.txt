@@ -1,0 +1,81 @@
+#include<iostream>
+using namespace std;
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+    cout<<endl;
+}
+node* create()
+{
+   int n;
+   node* first=nullptr;node* t;node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+node* kNodes(node* head, int k)
+{
+    if(head==NULL || k==0)
+        return head;
+    node* p=head;   node* q=nullptr;    node* temp;
+    int sum;
+    while(p!=nullptr)
+    {
+        sum=0;
+        for(int i=1;i<k ;i++)
+        {
+            sum+=p->data;
+            if(p->next!=nullptr && p->next->next==nullptr)
+                p=p->next;
+            else
+                break;
+        }
+        if(p->next!=nullptr && k%2==0)
+        {
+            sum+=p->data;
+        }
+        q=p->next;
+        temp=new node;
+        temp->data=sum;
+        temp->next=q;
+        p->next=temp;
+        p=q;
+    }
+    return head;
+}
+int main()
+{
+    node* h=create();
+    h=kNodes(h,2);
+    dispLL(h);
+    return 0;
+}

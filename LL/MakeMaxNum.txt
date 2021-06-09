@@ -1,0 +1,94 @@
+#include<iostream>
+using namespace std;
+
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+    cout<<endl;
+}
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+int findLen(node* head)
+{
+    node* p=head;
+    int c=0;
+    while(p)
+    {
+        c++;
+        p=p->next;
+    }
+    return c;
+}
+void maxNumber(node* head)
+{
+    int sum=0;
+    int nDigits=findLen(head);
+    while(nDigits)
+    {
+        node* p=head;
+        int max=-32677;
+        while(p)
+        {
+            if(p->data>max && p->data!=-1)
+                 max=p->data;
+                 
+            p=p->next;
+        }
+        p=head;
+        while(p)
+        {
+            if(p->data==max)
+            {
+                p->data=-1;
+                break;
+            }
+            p=p->next;
+        }
+        sum=(sum*10)+(max);
+        nDigits--;
+    }
+    cout<<sum;
+}
+int main()
+{
+    node* h=create();
+    maxNumber(h);
+    return 0;
+}

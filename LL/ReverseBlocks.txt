@@ -1,0 +1,97 @@
+#include<iostream>
+using namespace std;
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+    cout<<endl;
+}
+node* create()
+{
+   int n;
+   node* first=nullptr;node* t;node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+node* rev(node *first)
+{
+    if(first ==NULL || first->next==NULL)
+        return first;
+    node *q=NULL,*r=NULL;
+    node* p=first;
+    while(p)
+    {
+        r=q;
+        q=p;
+        p=p->next;
+        q->next=r;
+    }
+    first=q;
+    return first;
+}
+node* reverseBlocks(node* head,int length, int arr[])
+{
+   if(head==NULL || length==0)
+    return head;
+    node* prev=new node;prev->data=0;prev->next=nullptr;
+    node* temp=head; node* next= nullptr;
+    prev->next=head;
+    node* newhead=prev;
+    int count;
+    for(int i=0;i<length && temp!=nullptr;i++)
+    {
+        count=arr[i];
+        if(count==0)
+            continue;
+        while(temp->next!=nullptr && count>1)
+        {
+            temp=temp->next;
+            count--;
+        }
+        next=temp->next;
+        temp->next=nullptr;
+        temp=prev->next;
+        prev->next=rev(prev->next);
+        prev=temp;
+        prev->next=next;
+        temp=next;
+    }
+    return newhead->next;
+}
+int main()
+{
+    node* h=create();
+    int arr[3]={2,3,4};
+    h=reverseBlocks(h,3,arr);
+    dispLL(h);
+    return 0;
+}

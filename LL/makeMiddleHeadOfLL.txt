@@ -1,0 +1,74 @@
+#include<iostream>
+using namespace std;
+
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+    cout<<endl;
+}
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+
+node* makeMiddileHead(node* head)
+{
+    node* p=nullptr;
+    node* slow=head;
+    node* fast=head;
+    while(fast && fast->next)
+    {
+        p=slow;
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    node* t=new node;
+    t->data=slow->data;
+    t->next=head;
+    head=t;
+    p->next=slow->next;
+    delete slow;
+    return t;
+}
+
+int main()
+{
+    node* head=create();
+    head=makeMiddileHead(head);
+    dispLL(head);
+}

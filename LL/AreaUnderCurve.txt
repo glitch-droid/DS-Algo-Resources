@@ -1,0 +1,64 @@
+#include<iostream>
+using namespace std;
+class node
+{
+    public:
+            int x;
+            int y;
+            node* next;
+};
+
+node* create()
+{
+   int n,m;
+   node* first=nullptr;node* t;node* p;
+   while(1)
+   {
+       cin>>m>>n;
+       if(m<0 || n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->x=m;
+           t->y=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+int areaCurve(node* head)
+{
+    if(head==nullptr)
+        return 0;
+    if(head->x==head->next->x)
+        return 0;
+    node* p=head;
+    int area=0;
+    int width=0;
+    while(p->next)
+    {
+        if(p->x==p->next->x)
+        {
+            p=p->next;
+            continue;
+        }
+        width=(p->next->x)-(p->x);
+        area+=width*((p->y + p->next->y)/2);
+        p=p->next;
+    }
+    return area;
+}
+int main()
+{
+    node* h=create();
+    cout<<areaCurve(h);
+    return 0;
+}

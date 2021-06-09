@@ -1,0 +1,75 @@
+#include<iostream>
+using namespace std;
+
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+
+node* split(node* first)
+  {  node* p=first;
+    node* q=first->next->next;
+    node* t;
+    while(q && q->next)
+    {
+        t=new node;
+    	t->data = q->data;
+    	t->next=nullptr;
+    	p->next=t;
+        p=t;
+        q=q->next->next;
+    }
+    return first;
+}
+void display(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node* h=create();
+    node* h1=h;
+    node* h2=h->next;
+    h1=split(h1);
+    h2=split(h2);
+    
+    display(h1);
+    display(h2);
+    
+}

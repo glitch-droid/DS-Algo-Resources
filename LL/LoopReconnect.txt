@@ -1,0 +1,95 @@
+#include<iostream>
+using namespace std;
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+    cout<<endl;
+}
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+node* findLast(node* head)
+{
+    node* p=head;
+    while(p->next)
+    {
+        p=p->next;
+    }
+    return p;
+}
+node* loop(int val, node* head)
+{
+    int max=val;
+    node* t=head;
+    while(t)
+    {
+        if(t->data>val)
+        {
+            max=t->data;
+            break;
+        }
+        t=t->next;
+    }
+    if(max==val)
+        return nullptr;
+    else
+        return t;
+}
+node* loopReconnect(node* head, int k, node* last)
+{
+    if(k==0 || head==nullptr)
+        return head;
+    node* pos=head;
+    while(k>1)
+    {
+        pos=pos->next;
+        k--;
+    }
+    last->next=loop(pos->data,head);
+    return head;
+}
+int main()
+{
+    node* h=create();
+    node* last=findLast(h);
+    int n;
+    cin>>n;
+    h=loopReconnect(h,n,last);
+    dispLL(h);
+}

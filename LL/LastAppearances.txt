@@ -1,0 +1,92 @@
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+}
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+
+node* lastAppearance(node* head)
+{
+    node* temp=head;
+    int pos=1;
+    unordered_map<int, int> hm;
+    
+    while(temp!=nullptr)        /*Storing last appearances*/
+    {
+        hm[temp->data]=pos++;
+        temp=temp->next;
+    }
+    
+    pos=1;
+    while(pos!=hm[head->data])      /*for deleting duplicates at the beginning of the list*/
+    {
+        pos++;
+        head=head->next;
+    }
+    
+    temp=head;
+    pos++;
+    
+    while(temp->next!=nullptr)
+    {
+        if(pos!=hm[temp->next->data])
+        {
+            temp->next=temp->next->next;
+        }
+        else
+        {
+            temp=temp->next;
+        }
+        pos++;
+    }
+    return head;
+}
+
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    node* h=create();
+    h=lastAppearance(h);
+    dispLL(h);
+}

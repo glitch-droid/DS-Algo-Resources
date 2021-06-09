@@ -1,0 +1,34 @@
+Node* getLoopstart(Node *loop_node, Node *head) 
+{ 
+	Node *ptr1 = loop_node; 
+	Node *ptr2 = loop_node; 
+
+	// Count the number of nodes in loop 
+
+	unsigned int k = 1, i; 
+	while (ptr1->next != ptr2) 
+	{ 
+		ptr1 = ptr1->next; 
+		k++; 
+	} 
+
+	// Fix one pointer to head 
+	ptr1 = head; 
+
+	// And the other pointer to k nodes after head 
+	ptr2 = head; 
+	for (i = 0; i < k; i++) 
+		ptr2 = ptr2->next; 
+
+	/* Move both pointers at the same pace, 
+	they will meet at loop starting node */
+	while (ptr2 != ptr1) 
+	{ 
+		ptr1 = ptr1->next; 
+		ptr2 = ptr2->next; 
+	} 
+	return ptr1; 
+} 
+
+
+/* Loop node used in the function is the node where the slow and the fast pointers became equal*/

@@ -1,0 +1,88 @@
+#include<iostream>
+#include<stack>
+#include<queue>
+using namespace std;
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    if(p)
+    {
+        int n=p->data;
+        dispLL(p->next);
+        cout<<n<<" ";
+    }
+}
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+
+void merge(node* a, node* b)
+{
+    node* p=a;
+    node* u=b;
+    node* q;
+    node* v;
+    node* ex;
+    if(a->data<b->data)
+        ex=a;
+    else
+        ex=b;
+    while(p!=nullptr && u!=nullptr)
+    {
+        if(p->data<u->data)
+        {
+            q=p;
+            p=p->next;
+            q->next=u;
+        }
+        else
+        {
+            v=u;
+            u=u->next;
+            v->next=p;
+        }
+    }
+    dispLL(ex);
+}
+
+
+
+int main()
+{
+    node* f1;
+    node* f2;
+    f1=create();
+    f2=create();
+    merge(f1,f2);
+    return 0;
+}

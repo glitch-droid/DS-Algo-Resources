@@ -1,0 +1,87 @@
+#include<iostream>
+using namespace std;
+class node
+{
+    public:
+            int x;
+            int y;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->x<<" "<<t->y;
+        t=t->next;
+    }
+    cout<<endl;
+}
+node* create()
+{
+   int n,m;
+   node* first=nullptr;node* t;node* p;
+   while(1)
+   {
+       cin>>m>>n;
+       if(m<0 || n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->x=m;
+           t->y=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+
+float slope(node* a, node* b)
+{
+    float s;
+    s=(float)((b->y)-(a->y))/((b->x)-(a->x));
+    return s;
+}
+node* findSlope(node* head)
+{
+    float max=-32677,min=32677;
+    float r;
+    node* p=head;
+    node *Res=new node[2*sizeof(node)];
+    while(p->next!=nullptr)
+    {
+        r=slope(p,p->next);
+        if(r>max)
+        {
+            max=r;
+            Res[0].x=p->x;
+            Res[0].y=p->y;
+        }
+        if(r<min)
+        {
+            min=r;
+            Res[1].x=p->x;
+            Res[1].y=p->y;
+        }
+        p=p->next;
+    }
+    return Res;
+}
+
+int main()
+{
+   node* head=create();
+   node *A=findSlope(head);
+   cout<<"Max : "<<A[1].x<<" "<<A[1].y<<endl;
+   cout<<"Min : "<<A[0].x<<" "<<A[0].y;
+   return 0;
+}

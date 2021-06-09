@@ -1,0 +1,50 @@
+if(!l1 && !l2)
+            return nullptr;
+        if(!l2 && l1)
+            return l1;
+        if(!l1 && l2)
+            return l2;
+        
+        ListNode* p=l1;
+        ListNode* q=l2;
+        
+        ListNode* l3=nullptr;
+        ListNode* t;
+        ListNode* prev;
+        
+        int carry=0;
+        int sum;
+        
+        while(p || q){
+            
+            int a=(p!=nullptr) ? p->val : 0;
+            int b=(q!=nullptr) ? q->val : 0;
+            
+            sum=a+b+carry;
+            
+            carry = (sum<10) ? 0 : 1;
+            
+            sum = (sum<10) ? sum : (sum%10);
+            
+            t=new ListNode(sum);
+            
+            if(!l3){
+                l3=t;
+                
+            }else{
+                prev->next=t;
+            }
+                
+            prev=t;
+            
+            if(p)
+                p=p->next;
+            if(q)
+                q=q->next;
+            
+        }
+        if(carry>0){
+            t->next=new ListNode(1);
+        }
+        return l3;
+        

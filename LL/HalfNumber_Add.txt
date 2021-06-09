@@ -1,0 +1,83 @@
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+node* rev(node *first)
+{
+ node *q=NULL,*r=NULL;
+ node* p=first;
+
+ while(p)
+ {
+ r=q;
+ q=p;
+ p=p->next;
+ q->next=r;
+ }
+ first=q;
+ return first;
+}
+
+int halfNumber(node* head1)
+{
+    if(head1->next==nullptr || head1==nullptr)
+        return head1->data;
+    node* slow=head1;    node* fast=head1;
+    int first=0,second=0;
+    while(fast && fast->next)
+    {
+        first=(first*10)+(slow->data);
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    if(fast!=nullptr && fast->next==nullptr)
+    {
+        first=(first*10)+(slow->data);
+        slow=slow->next;
+    }
+    while(slow)
+    {
+        second=(second*10)+(slow->data);
+        slow=slow->next;
+    }
+    cout<<first<<"  "<<second<<endl;
+    return first+second;
+}
+int main()
+{
+    node* h=create();
+    cout<<halfNumber(h);
+    return 0;
+}

@@ -1,0 +1,90 @@
+#include<iostream>
+using namespace std;
+
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+    cout<<endl;
+}
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+
+int bubbleSortLL(node* head)
+{
+    node* t=head->next;
+    node* p=nullptr;
+    node* q=head;
+    int temp,flag,counter=0;
+    while(1)
+    {
+        flag=0;
+        while(t!=p)
+        {
+            if(q->data>t->data)
+            {
+                counter++;
+                flag=1;
+                temp=q->data;
+                q->data=t->data;
+                t->data=temp;
+            }
+            q=t;
+            t=t->next;
+        }
+        if(flag==0)
+            return counter;
+        p=q;
+        q=head;
+        t=q->next;
+    }
+}
+
+int countInversion(node* head)
+{
+    int c=bubbleSortLL(head);
+    return c;
+}
+
+int main()
+{
+    node* f=create();
+    cout<<countInversion(f);
+    return 0;
+}

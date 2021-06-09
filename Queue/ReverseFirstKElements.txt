@@ -1,0 +1,66 @@
+#include<iostream>
+#include<stack>
+#include<queue>
+using namespace std;
+
+void disp(queue<int>q ){
+    while(!q.empty()){
+        cout<<q.front()<<" ";
+        q.pop();
+    }
+    cout<<endl;
+}
+
+void reverseQueue(queue<int> &q){
+    if(q.empty())
+        return ;
+    else{
+        int x=q.front();
+        q.pop();
+        reverseQueue(q);
+        q.push(x);
+    }
+}
+
+void kReverseQueue(queue<int>& q, int k){
+    if(k>q.size())
+        return;
+    stack<int>s1;
+    stack<int>s2;
+    reverseQueue(q);
+    if(k==q.size())
+        return;
+    
+        
+    for(int i=0;i<=q.size()-k;i++){
+        s1.push(q.front()); 
+        q.pop();
+    }
+            
+    while(!q.empty()){
+        s2.push(q.front());
+        q.pop();
+    }
+            
+    while(!s2.empty()){
+        s1.push(s2.top());
+        s2.pop();
+    }
+    
+    while(!s1.empty()){
+        q.push(s1.top());
+        s1.pop();
+    }
+}
+
+int main(){
+    queue<int> q;
+    q.push(10);
+    q.push(20);
+    q.push(30);
+    q.push(40);
+    q.push(50);
+    disp(q);
+    kReverseQueue(q,4);
+    disp(q);
+}

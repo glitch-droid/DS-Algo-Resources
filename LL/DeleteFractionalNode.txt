@@ -1,0 +1,78 @@
+#include<iostream>
+using namespace std;
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+    cout<<endl;
+}
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+node* fractionalNodes(node* head, int k) 
+{ 
+    // Corner cases 
+    if (k <= 0 || head == NULL) 
+        return NULL; 
+  
+    node* fractionalNode = NULL; 
+      
+    // Traverse the given list  
+    int i = 0; 
+    for (node* temp = head; temp != NULL; temp = temp->next) { 
+  
+        // For every k nodes, we move fractionalNode one 
+        // step ahead.  
+        if (i % k == 0) { 
+  
+            // First time we see a multiple of k 
+            if (fractionalNode == NULL) 
+                fractionalNode = head; 
+  
+            else
+                fractionalNode = fractionalNode->next; 
+        } 
+        i++; 
+    } 
+    return fractionalNode; 
+} 
+int main(){
+    node* h=create();
+    node* p=fractionalNodes(h,5);
+    cout<<p->data;
+}

@@ -1,0 +1,86 @@
+#include<iostream>
+using namespace std;
+
+class node
+{
+    public:
+            int data;
+            node* right;
+            node* down;
+};
+
+node* matrixLL(int A[][3], int i, int j, int n , int m)
+{
+    if(i>m-1 || j>n-1)
+        return nullptr;
+    else
+    {
+        node* temp=new node;
+        temp->data=A[i][j];
+        temp->right=matrixLL(A,i,j+1,n,m);
+        temp->down=matrixLL(A,i+1,j,n,m);
+        return temp;
+    }
+}
+
+void dispLL(node* head)
+{
+    if(head==nullptr)
+        return;
+    else
+    {
+        node* dp=head;
+        node* rp;
+        while(dp)
+        {
+            rp=dp;
+            while(rp)
+            {
+                cout<<rp->data<<" ";
+                rp=rp->right;
+            }
+            dp=dp->down;
+            cout<<endl;
+        }
+    }
+}
+void modifyMatrix(node* head, int n, int m)
+{
+    node* p;
+    node* r=head;
+    int i,j;
+    while(r->right)
+    {
+        p=r;
+        cout<<p->data<<" - ";
+        i=1;
+        j=1;
+        while(i<n)
+        {
+            p=p->down;
+            cout<<p->data<<" - ";
+            i++;
+        }
+        while(j<m)
+        {
+            p=p->right;
+            cout<<p->data<<" - ";
+            j++;
+        }
+        r=r->right;
+        n--;
+        m--;
+    }
+    cout<<r->data;
+}
+int main()
+{
+    int A[][3]={
+        {1,2,3},
+        {4,5,6},
+        {7,8,9}
+    };
+    node* head=matrixLL(A,0,0,3,3);
+    dispLL(head);
+    modifyMatrix(head,3,3);
+}

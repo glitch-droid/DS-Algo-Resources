@@ -1,0 +1,104 @@
+#include<iostream>
+using namespace std;
+
+class  node
+{
+    public:
+            int pop;
+            node *next;
+};
+
+node *first;
+
+void CreateLL(int n)
+{
+    node* t;
+    node* p;
+    for(int i=0;i<n;i++)
+    {
+        t=new node;
+        cin>>t->pop;
+        t->next=nullptr;
+        if(first==nullptr)
+        {
+            first=t;
+            p=t;
+        }
+        else
+        {
+            p->next=t;
+            p=t;
+        }
+    }
+}
+
+void DelFriend(int d)
+{
+    node* p;
+    node* q;
+    node* r;
+    while(d)
+    {
+        r=nullptr;
+        q=nullptr;
+        p=first;
+       while(p)
+       {
+           r=q;
+           q=p;
+           p=p->next;
+           if(p==nullptr)
+           {
+               r->next=nullptr;
+               delete q;
+               break;
+           }
+           if(p->pop>q->pop && q==first)
+           {
+               
+               first=p;
+               delete q;
+               break;
+           }
+           else if(p->pop > q->pop)
+           {
+               
+               r->next=p;
+               q->next=nullptr;
+               delete q;
+               break;
+           }
+       }
+       d--;
+    }
+    
+}
+
+void Disp()
+{
+    node* p=first;
+    while(p)
+    {
+        cout<<p->pop<<" ";
+        p=p->next;
+    }
+    cout<<endl;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int T,N,D;
+    cin>>T;
+    while(T)
+    {
+        first=nullptr;
+        cin>>N>>D;
+        CreateLL(N);
+        DelFriend(D);
+        Disp();
+        T--;
+    }
+    return 0;
+}

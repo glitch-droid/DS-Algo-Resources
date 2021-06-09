@@ -1,0 +1,108 @@
+#include<iostream>
+using namespace std;
+
+//QUEUE class definition starts
+
+class node{
+    public:
+            int data;
+            node* next;
+};
+
+class Queue{
+    private:
+            node* front=nullptr;
+            node* rear=nullptr;
+            int sz=0;
+    public:
+            void enqueue(int val);
+            void dequeue();
+            int getFront();
+            int getRear();
+            void disp();
+            int size();
+            bool isEmpty();
+};
+
+void Queue::enqueue(int val){
+    node* t=new node;
+    t->data=val;
+    t->next=nullptr;
+    sz++;
+    if(front==nullptr){
+        front=t;
+        rear=t;
+        t->next=front;
+    }else{
+        rear->next=t;
+        rear=t;
+        t->next=front;
+    }
+}
+
+void Queue::dequeue(){
+    if(front==nullptr){
+        cout<<"Queue is Empty"<<endl;
+    }else{
+        node* p=front;
+        front=front->next;
+        rear->next=front;
+        p->next=nullptr;
+        delete p;
+        sz--;
+    }
+}
+
+int Queue::getFront(){
+    if(front!=nullptr){
+        return front->data;
+    }else{
+        return -1;
+    }
+}
+
+int Queue::getRear(){
+    if(rear!=nullptr){
+        return rear->data;
+    }else{
+        return -1;
+    }
+}
+
+int Queue::size(){
+    return sz;
+}
+
+bool Queue::isEmpty(){
+    if(front==nullptr){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+void Queue::disp(){
+    node* p=front;
+    cout<<p->data<<" ";
+    p=p->next;
+    while(p!=front){
+        cout<<p->data<<" ";
+        p=p->next;
+    }
+    cout<<endl;
+}
+
+//QUEUE class definition ends
+
+int main(){
+    Queue q;
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+    q.enqueue(40);
+    q.enqueue(50);
+    q.disp();
+    q.dequeue();
+    q.enqueue(60);
+    q.disp();
+}

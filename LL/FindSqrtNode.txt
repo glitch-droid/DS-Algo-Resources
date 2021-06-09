@@ -1,0 +1,68 @@
+#include<iostream>
+using namespace std;
+class node
+{
+    public:
+            int data;
+            node* next;
+};
+
+void dispLL(node* p)
+{
+    node* t=p;
+    while(t)
+    {
+        cout<<t->data<<" ";
+        t=t->next;
+    }
+    cout<<endl;
+}
+node* create()
+{
+   int n;
+   node* first=nullptr;
+   node* t;
+   node* p;
+   while(1)
+   {
+       cin>>n;
+       if(n<0)
+        break;
+       else
+       {
+           t=new node;
+           t->data=n;
+           t->next=nullptr;
+           if(first==nullptr)
+           {
+               first=t;
+               p=first;
+           }
+           p->next=t;
+           p=t;
+       }
+   }
+   return first;
+}
+int printSqrtNode(node* head){
+    int i=1,j=1;
+    node* curr=NULL;
+    while(head!=nullptr)
+    {
+        if(i==j*j)
+        {
+            if(curr==nullptr)
+                curr=head;
+            else
+                curr=curr->next;
+            j++;
+        }
+        i++;
+        head=head->next;
+    }
+    return curr->data;
+}
+int main(){
+    node* h=create();
+    cout<<printSqrtNode(h);
+}
