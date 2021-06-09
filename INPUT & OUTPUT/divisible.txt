@@ -1,0 +1,43 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+int main()
+{
+   int n,*a,*b,sum=0,r,p;
+   scanf("%d",&n);
+   a=(int *)malloc(n*sizeof(int));
+   b=(int *)malloc(n*sizeof(int));
+   for(int i=0;i<n;i++)
+   {
+       scanf("%d",&a[i]);
+   }
+   r=n/2;
+   for(int j=0;j<n;j++)
+   {
+       if(j<r)
+       {
+           while(a[j]>=10)
+           {
+               a[j]=a[j]/10;
+           }
+           b[j]=a[j];
+       }
+       else
+       {
+           b[j]=a[j]%10;
+       }
+   }
+   for(int k=0,p=(n-1);k<n;k++,p--)
+   {
+     sum+=b[k]*pow(10,p);
+   }
+   if(sum%11==0)
+   {
+       printf("OUI");
+   }
+   else
+   {
+       printf("NON");
+   }
+   return 0;
+}

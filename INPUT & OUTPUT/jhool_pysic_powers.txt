@@ -1,0 +1,40 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    unsigned long long int num,arr[1000000],j=0;
+    int count;
+    cin>>num;
+    while(num!=0)
+    {
+        arr[j++]=num%10;
+        num=(num-(num%10))/10;
+    }
+    
+    if(j<=5)
+    {
+        cout<<"Good luck!";
+    }
+    
+    else
+    {
+        for(unsigned long long int i=0;i<=j-6;i++)
+        {
+            count=0;
+            for(int k=i;k<i+5;k++)
+            {
+                if(arr[k+1]==arr[k])
+                {
+                    count++;
+                }
+            }
+            if(count==5)
+            {
+                cout<<"Sorry, sorry!";
+                return 0;
+            }
+        }
+        cout<<"Good luck!";
+    }
+    return 0;
+}

@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<math.h>
+void findRoots(float a, float b, float c);
+float findD(float a, float b, float c);
+
+int main()
+{
+    
+    while(1)
+    {
+        int ch;
+        float a,b,c;
+        scanf("%f %f %f",&a,&b,&c);
+        printf("%5.1fx2 + %.1fx + %.1f",a,b,c);
+        findRoots(a,b,c);
+        printf("\nDo you want to enter more (1/0) ? ");
+        scanf("%d",&ch);
+        if(ch<1)
+        {
+            printf("\nThanks GOODBYE");
+            break;
+        }
+    }
+}
+
+float findD(float a, float b, float c)
+{
+    float d=(b*b)-(4.0*a*c);
+    if(d<0)
+        return -1;
+    else
+        return d;
+}
+
+void findRoots(float a, float b, float c)
+{
+    float d=findD(a,b,c);
+    if(d>=0)
+    {
+        float r1,r2;
+        r1=((-b)+sqrt(d))/(2*a);
+        r2=((-b)-sqrt(d))/(2*a);
+        printf("\nThe roots are : ");
+        printf("%5.2f  %.2f",r1,r2);
+    }
+    else
+        printf("Complex Roots");
+}

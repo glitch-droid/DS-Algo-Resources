@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+    int *arr,n,sum=0,m,*str,l=0,count=0,small,flag=1;
+    scanf("%d",&n);
+    arr=(int*)malloc(n*sizeof(int));
+    str=(int*)malloc(n*sizeof(int));
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    for(int j=0;j<n;j++)
+    {
+        sum+=arr[j];
+    }
+    for(int k=0;k<n;k++)
+    {
+        m=sum-arr[k];
+        if(m%7==0)
+        {
+            flag=0;
+            str[l++]=arr[k];
+            count++;
+        }
+    }
+    if(flag==1)
+    {
+        printf("%d",-1);
+        return 0;
+    }
+    small=str[0];
+    for(int y=0;y<count;y++)
+    {
+        if(str[y]<=small)
+        {
+            small=str[y];
+        }
+    }
+    for(int u=0;u<n;u++)
+    {
+        if(arr[u]==small)
+        {
+            printf("%d",u);
+            return 0;
+        }
+    }
+}

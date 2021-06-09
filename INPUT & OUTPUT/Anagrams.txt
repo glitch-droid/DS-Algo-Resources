@@ -1,0 +1,45 @@
+#include<stdio.h>
+int ana()
+{
+    char A[10000],B[10000];
+    int X[26]={0},Y[26]={0};
+    int count=0;
+        scanf("%s %s",A,B);
+        for(int i=0;A[i]!='\0';i++)
+        {
+            X[A[i]-97]++;
+        }
+        for(int j=0;B[j]!='\0';j++)
+        {
+            Y[B[j]-97]++;
+        }
+        int i,k=0;
+        for(i=0;i<26;i++)
+        {
+            if(X[i]<Y[i])
+            {
+                count+=Y[i]-X[i];
+            }
+            else if(X[i]>Y[i])
+            {
+                count+=X[i]-Y[i];
+            }
+            else
+            {
+                continue;
+            }
+        }
+    return count;
+}
+
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    while(t!=0)
+    {
+        printf("%d\n",ana());
+        t--;
+    }
+    return 0;
+}

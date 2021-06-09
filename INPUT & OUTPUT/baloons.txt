@@ -1,0 +1,36 @@
+#include<stdio.h>
+int main()
+{
+    int  p,k,arr1[p],t,n,m,sum[k];
+    sum[1]=0;
+    k=1;
+    scanf("%d",&t);
+    while(t!=0)
+   {
+       scanf("%d%d",&m,&n);
+       scanf("%d",&p);
+       for(int i=1;i<=p;i++)
+       {
+           for(int j=1;j<=2;j++)
+           {
+               scanf("%d",&arr1[j]);
+           }
+           for(int j=1;j<=2;j++)
+           {
+               if(j==1)
+               sum[k] = sum[k] + (m*arr1[j]);
+               else
+               sum[k] = sum[k] + (n*arr1[j]);
+           }
+       }
+       t--;
+       k++;
+       sum[k]=0;
+   }
+   for(int i=1;i<k;i++)
+   {
+       printf("%d\n",sum[i]);
+   }
+    return 0;
+}    
+    

@@ -1,0 +1,28 @@
+#include<stdio.h>
+#include<math.h>
+long int bits(long int x)
+{
+	return ((long int)log2(x) + 1);
+}
+int main()
+{
+	long int t,n,r1,r2,counter;
+	scanf("%ld",&t);
+	while(t!=0)
+	{
+		counter=0;
+		scanf("%ld",&n);
+		r1=bits(n);
+		for(long int i=1;i<=n;i++)
+		{
+			r2=bits(n/i);
+			if(r2<r1)
+			{
+				counter++;
+			}	
+		}
+		t--;
+		printf("%ld\n",counter);
+	}
+	return 0;
+}

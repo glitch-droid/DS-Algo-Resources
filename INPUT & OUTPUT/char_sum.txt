@@ -1,0 +1,24 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char string[100];
+	int sum=0,w,as,n;
+	scanf("%s",string);
+	n=strlen(string);
+	for(int j=0;j<n;j++)
+	{
+		as=string[j];
+		if(as==97)
+		{
+		    w=1;
+		}
+		else
+		{
+		    w=(as-97)+1;
+		}
+		sum+=w;
+	}
+	printf("%d",sum);
+	return 0;
+}

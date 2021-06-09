@@ -1,0 +1,44 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{	
+	int n,m,t,count;
+	char arr1[10000],arr2[10000];
+	scanf("%d",&t);
+	while(t!=0)
+	{
+		count=0;
+		scanf("%s",arr1);
+		scanf("%s",arr2);
+		n=strlen(arr1);
+		m=strlen(arr2);
+		if(n!=m)
+		{
+			return -1;
+		}
+		else
+		{
+			for(int i=0;i<n;i++)
+			{
+				for(int j=0;j<n;j++)
+				{
+					if(arr2[j]==arr1[i])
+					{
+						count++;
+					}
+				}
+			}
+		}
+		t--;
+		if(count==n)
+		{
+			printf("YES\n");
+		}
+		else
+		{
+		    printf("NO\n");
+		}
+	}
+	
+	return 0;
+}

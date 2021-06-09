@@ -1,0 +1,58 @@
+#include<stdio.h>
+#include<ctype.h>
+#include<stdlib.h>
+#include<string.h>
+void convt(char arr[],int n)
+{
+    char *ptr;
+    arr[0]=tolower(arr[0]);
+    int m=0;
+    for(int i=0;i<n;i++)
+    {
+        if(isupper(arr[i]))
+        {
+            m++;
+        }
+    }
+    if(m==0)
+    {
+        printf("%s\n",arr);
+    }
+    else
+    {
+        int y=1;
+        ptr=(char *)malloc((n+m)*sizeof(char));
+        ptr[0]=arr[0];
+        for(int j=1;j<n;j++)
+        {
+            if(isupper(arr[j]))
+            {
+                ptr[y]='_';
+                y++;
+                ptr[y]=tolower(arr[j]);
+                y++;
+            }
+            else
+            {
+                ptr[y]=arr[j];
+                y++;
+            }
+        }
+        printf("%s\n",ptr);
+    }
+    
+}
+int main()
+{
+    int t,n;
+    scanf("%d",&t);
+    char s[100];
+    while(t!=0)
+    {
+        scanf("%s",s);
+        n=strlen(s);
+        convt(s,n);
+        t--;
+    }
+    return 0;
+}

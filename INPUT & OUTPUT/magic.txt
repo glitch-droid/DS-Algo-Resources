@@ -1,0 +1,44 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+	int n,arr1[n],sum=0,m,arr2[10000],l=0,small;
+	scanf("%d",&n);
+	for(int i=0;i<n;i++)
+	{
+		scanf("%d",&arr1[i]);
+	}
+	for(int j=0;j<=n;j++)
+	{
+	   sum+=arr1[j];
+	}
+    for(int k=0;k<=n;k++)
+    {
+        m=sum-arr1[k];
+        if((m%7)==0)
+        {
+            arr2[l++]=arr1[k];
+        }
+    }
+    if(l==0)
+    {
+        printf("-1");
+        exit(1);
+    }
+    small=arr2[0];
+    for(int h=1;h<(l-1);h++)
+    {
+     if(small>arr2[h])
+     {
+         small=arr2[h];
+     }
+    }
+   for(int y=0;y<n;y++)
+   {
+       if(arr1[y]==small)
+       {
+           printf("%d",y);
+       }
+   }
+  return 0;
+}

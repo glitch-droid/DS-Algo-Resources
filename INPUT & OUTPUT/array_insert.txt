@@ -1,0 +1,37 @@
+#include<iostream>
+
+using namespace std;
+
+int main()
+{
+    long int n,t,l,r,x,y,sum;
+    cin>>n>>t;
+    int arr[n],ch;
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+    while(t!=0)
+    {
+        sum=0;
+        cin>>ch;
+        switch(ch)
+        {
+            case 1:
+                    cin>>y>>x;
+                    arr[y]=x;
+                    break;
+            
+            case 2:
+                    cin>>l>>r;
+                    for(int j=l;j<=r;j++)
+                    {
+                        sum+=arr[j];
+                    }
+                    cout<<sum<<endl;
+                    break;
+        }
+        t--;
+    }
+    return 0;
+}

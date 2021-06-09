@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include<stdlib.h>
+void main()
+{
+int num, flag = 1;
+scanf("%d", &num);
+char *ch;
+ch = (char *)malloc(num * sizeof(char));
+for (int i = 0; i <= num; i++)
+scanf("%c", &ch[i]);
+for (int i = 0; i <= num; i++)
+{
+if (ch[i] == '.')
+ch[i] = 'B';
+if (ch[i] == 'H')
+{
+if (ch[i + 1] == 'H')
+flag = 0;
+}
+}
+if (flag == 1)
+printf("YES\n%s", ch);
+else
+printf("NO");
+}

@@ -1,0 +1,57 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct
+{
+    char name[50];
+    char author[50];
+    char pub[50];
+    long int isbn;
+}book;
+
+void disp(book* p,long int n);
+
+int main()
+{
+    book b[5];
+    for(int i=0;i<5;i++)
+    {
+        printf("\nEnter book details : \n");
+        printf("AUTHOR : ");
+        scanf("%s",b[i].author);
+        printf("NAME : ");
+        scanf("%s",b[i].name);
+        printf("PUBLISHER : ");
+        scanf("%s",b[i].pub);
+        printf("ISBN : ");
+        scanf("%ld",&b[i].isbn);
+    }
+    long int i=1;
+    while(i>0)
+    {
+        printf("ISBN (-1 to EXIT): ");
+        scanf("%ld",&i);
+        if(i<0)continue;
+        disp(b,i);
+    }
+    return 0;
+}
+
+void disp(book* p,long int n)
+{
+    int f=0;
+    for(int i=0;i<5;i++)
+    {
+        if(((p+i)->isbn)==n)
+        {
+            f=1;
+            printf("AUTHOR : %s\n",(p+i)->author);
+            printf("BOOK NAME : %s\n",(p+i)->name);
+            printf("PUBLISHER : %s\n",(p+i)->pub);
+            break;
+        }
+    }
+    if(f==0)
+        printf("INVALID ISBN!!\n");
+}
+
+
