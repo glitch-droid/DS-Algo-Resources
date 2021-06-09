@@ -1,0 +1,82 @@
+#include<iostream>
+
+using namespace std;
+string p;
+char H[26],X[26];
+int c1,c2,k;
+
+int prime(int n);
+
+void findr()
+{
+    k=0;
+    H[0]=0;
+    c1=0,c2=0;
+    cin>>p;
+    for(int i=0;p[i]!='\0';i++)
+    {
+        H[p[i]-97]++;
+    }
+    for(int i=0;i<26;i++)
+    {
+        if(H[i]>0)
+        {
+            c1++;
+            X[k++]=H[i];
+        }
+    }
+    if(prime(c1)<0)
+    {
+        cout<<"NO\n";
+    }
+    else
+    {
+        for(int j=0;j<k;j++)
+        {
+            if(prime(X[j])<0)
+            {
+                cout<<"NO\n";
+                break;
+            }
+            else
+            {
+                c2++;
+            }
+        }
+        if(c2==c1)
+        {
+            cout<<"YES\n";
+        }
+    }
+}
+
+int prime(int n)
+{
+     int m=0;
+    for(int i=1;i<=n;i++)
+    {
+        if(n%i==0)
+        {
+            m++;
+        }
+    }
+    if(m==2)
+    {
+        return 1;
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t!=0)
+    {
+        findr();
+        t--;
+    }
+}

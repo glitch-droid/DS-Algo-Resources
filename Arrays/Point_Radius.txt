@@ -1,0 +1,43 @@
+#include<iostream>
+#include<math.h>
+using namespace std;
+struct point
+{
+    long int x;
+    long int y;
+};
+
+int cal(int a,int b)
+{
+    long int res;
+    res=(a*a)+(b*b);
+    return (int)pow(res,0.5);
+}
+
+int main()
+{
+    int n,q,count,r;
+    cin>>n;
+    struct point *p=new point[n];
+    p=new point[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>p[i].x>>p[i].y;
+    }
+    cin>>q;
+    long long int A[q];
+    for(int i=1;i<=q;i++)
+    {
+        cin>>A[i];
+        count=0;
+        for(int j=0;j<n;j++)
+        {
+            r=cal(p[j].x,p[j].y);
+            if(r<=A[i])
+            {
+                count++;
+            }
+        }
+        cout<<count<<endl;
+    }
+}

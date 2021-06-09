@@ -1,0 +1,29 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+	int n,flag,j=0,k=0;
+	scanf("%d",&n);
+	char *arr;
+	arr=(char *)malloc(n*sizeof(char));
+	scanf("%s",arr);
+    while(j<n)
+    {
+        if(arr[j]==arr[j+1])
+        {
+            for(int i=j;i<n;i++)
+            {
+                arr[i]=arr[i+2];
+            }
+            n-=2;
+            j-=1;
+        }
+        else
+        {
+            j++;
+        }
+    }
+    printf("%d\n",n);
+    puts(arr);
+    return 0;
+}

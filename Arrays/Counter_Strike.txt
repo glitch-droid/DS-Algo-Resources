@@ -1,0 +1,96 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct targ
+{
+	int x;
+	int y;
+};
+
+struct nav
+{
+	int u;
+	int v;
+};
+
+struct MD
+{
+	struct targ *p;
+	struct nav *q;
+};
+
+int res(int u,int v,int x,int y)
+{
+    int g,h;
+    g=u-x;
+    if(g<0)
+    {
+        g*(-1);
+    }
+    h=v-y;
+    if(h<0)
+    {
+        h*(-1);
+    }
+    return g+h;
+}
+
+int cal(int n,int m,int d)
+{
+    struct MD a;
+    int r,count=0;
+    a.q=(struct nav*)malloc(n*sizeof(struct nav));
+    a.p=(struct targ*)malloc(m*sizeof(struct targ));
+    
+    for(int i=0;i<m;i++)
+    {
+        scanf("%d%d",&a.q[i].u,&a.q[i].v);
+    }
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d%d",&a.p[i].x,&a.p[i].y);
+    }
+    
+    int b=0,k=0;
+    while(k<n && b<m)
+    {
+        r=res(a.p[b].x,a.p[b].y,a.q[k].u,a.q[k].v);
+        if(r<=d)
+        {
+            count++;
+            b++;
+        }
+        else
+        {
+            k++;
+        }
+    }
+    if(count>(int)m/2)
+    {
+        return 1;
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+int main()
+{
+	int t,n,m,d;
+	scanf("%d",&t);
+	while(t!=0)
+	{
+        scanf("%d%d%d",&n,&m,&d);
+        if(cal(n,m,d)<0)
+        {
+            printf("No\n");
+        }
+        else
+        {
+            printf("Yes\n");
+        }
+        t--;
+	}
+	return 0;
+}

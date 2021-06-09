@@ -1,0 +1,55 @@
+#include<iostream>
+using namespace std;
+
+class heap
+{
+    private:
+            int A[100];
+            int sz;
+    
+    public: 
+            void getArray();
+            void insert(int n);
+            void CreateHeap();
+            void dispHeap();
+};
+
+void heap::insert(int n)
+{
+    int t=A[n];
+    int i=n;
+    while(i>0 && t>A[i%2==0 ? (i/2)-1 : i/2])
+    {
+        A[i]=A[i%2==0 ? (i/2)-1 : i/2];
+        i=(i%2==0) ? (i/2)-1 : i/2;
+    }
+    A[i]=t;
+}
+
+void heap::CreateHeap()
+{
+    for(int i=0;i<sz;i++)
+            insert(i);
+}
+
+void heap::getArray()
+{
+    cin>>sz;
+    for(int i=0;i<sz;i++)
+            cin>>A[i];
+}
+
+void heap:: dispHeap()
+{
+    cout<<endl;
+    for(int i=0;i<sz;i++)
+        cout<<" "<<A[i];
+}
+
+int main()
+{
+    heap h;
+    h.getArray();
+    h.CreateHeap();
+    h.dispHeap();
+}

@@ -1,0 +1,113 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+/* A binary tree node has data, pointer to left child 
+and a pointer to right child */
+struct node { 
+	int data; 
+	struct node* left; 
+	struct node* right; 
+}; 
+
+/* Function protoypes */
+void printGivenLevel(struct node* root, int level, int ltr,vector<int> &sp); 
+int height(struct node* node); 
+struct node* newNode(int data); 
+
+
+int maxSubArraySum(vector<int> v){
+    int max_so_far=INT_MIN, max_ending_here=0;
+    for(int i=0;i<v.size();i++){
+        max_ending_here += v[i];
+        if(max_so_far<max_ending_here){
+            max_so_far=max_ending_here;
+        }
+        if(max_ending_here<0){
+            max_ending_here=0;
+        }
+    }
+    return max_so_far;
+} 
+
+
+/* Function to print spiral traversal of a tree*/
+int printSpiral(struct node* root) 
+{ 
+	int h = height(root); 
+	int i; 
+
+    vector<int> sp ;
+	bool ltr = false; 
+	for (i = 1; i <= h; i++) {
+	    
+		printGivenLevel(root, i, ltr,sp); 
+		ltr = !ltr; 
+	} 
+	return maxSubArraySum(sp);
+} 
+
+/* Print nodes at a given level */
+void printGivenLevel(struct node* root, int level, int ltr, vector<int> &sp ) 
+{ 
+	if (root == NULL) 
+		return; 
+	if (level == 1) 
+		sp.push_back(root->data);
+	else if (level > 1) { 
+		if (ltr) { 
+			printGivenLevel(root->left, level - 1, ltr,sp); 
+			printGivenLevel(root->right, level - 1, ltr,sp); 
+		} 
+		else { 
+			printGivenLevel(root->right, level - 1, ltr,sp); 
+			printGivenLevel(root->left, level - 1, ltr,sp); 
+		} 
+	} 
+} 
+
+
+
+int height(struct node* node) 
+{ 
+	if (node == NULL) 
+		return 0; 
+	else { 
+		/* compute the height of each subtree */
+		int lheight = height(node->left); 
+		int rheight = height(node->right); 
+
+		/* use the larger one */
+		if (lheight > rheight) 
+			return (lheight + 1); 
+		else
+			return (rheight + 1); 
+	} 
+} 
+
+
+struct node* newNode(int data) 
+{ 
+	struct node* node = (struct node*) 
+		malloc(sizeof(struct node)); 
+	node->data = data; 
+	node->left = NULL; 
+	node->right = NULL; 
+
+	return (node); 
+} 
+
+
+
+int main() 
+{ 
+	struct node* root = newNode(1); 
+	root->left = newNode(-2); 
+	root->right = newNode(3); 
+	root->left->left = newNode(-7); 
+	root->left->right = newNode(6); 
+	root->right->left = newNode(5); 
+	root->right->right = newNode(4); 
+	cout<<printSpiral(root);
+
+	return 0; 
+}

@@ -1,0 +1,59 @@
+#include<iostream>
+using namespace std;
+void swap( long int *p,long int *q);
+int main()
+{
+   long int t,num,n,count;
+    long int arr[1000000];
+    int j,m,flag=1;
+    cin>>t;
+    while(t!=0)
+    {
+        count=0;
+        j=0;
+        cin>>num;
+        while(num!=0)
+       {
+          arr[j++]=num%10;
+          num=(num-(num%10))/10;
+       }
+       n=j;
+       for(int i=0;i<n-1;i++)
+       {
+           m=i;
+           for(int k=i+1;k<n;k++)
+           {
+               if(arr[k]<arr[m])
+               {
+                   m=k;
+               }
+           }
+           swap(&arr[m],&arr[i]);
+       }
+       for(int p=0;p<n-1;p++)
+       {
+           if((arr[p+1]-arr[p])==1)
+           {
+               count++;
+           }
+       }
+       if(count==(n-1))
+       {
+           cout<<"YES\n";
+       }
+       else
+       {
+           cout<<"NO\n";
+       }
+       t--;
+    }
+    return 0;
+}
+void swap(long int *p,long int *q)
+{
+    long int temp;
+    temp=*p;
+    *p=*q;
+    *q=temp;
+}
+   

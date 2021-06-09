@@ -1,0 +1,40 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    int t,n,k;
+    long int alc[100000],bob[100000],big,sum,r;
+    cin>>t;
+    while(t!=0)
+    {
+        sum=0;
+        cin>>n>>k;
+        for(int i=0;i<n;i++)
+        {
+            cin>>alc[i];
+        }
+        for(int i=0;i<n;i++)
+        {
+            cin>>bob[i];
+        }
+        big=bob[0];
+        for(int j=0;j<n;j++)
+        {
+            if(bob[j]>=big)
+            {
+                big=bob[j];
+            }
+        }
+        for(int m=0;m<n;m++)
+        {
+            if(alc[m]<=big)
+            {
+                r=(big-alc[m])+1;
+                sum+=k*r;
+            }
+        }
+        cout<<sum<<endl;
+        t--;
+    }
+    return 0;
+}

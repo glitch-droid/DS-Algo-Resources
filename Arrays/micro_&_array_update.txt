@@ -1,0 +1,27 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+	int k,t,*arr,n,small;
+	scanf("%d",&t);
+	while(t!=0)
+	{
+		scanf("%d%d",&n,&k);
+		arr=(int *)malloc(n*sizeof(int));
+		for(int i=0;i<n;i++)
+		{
+			scanf("%d",&arr[i]);
+		}
+		small=arr[0];
+		for(int i=0;i<n;i++)
+		{
+			if(arr[i]<=small)
+			{
+				small=arr[i];
+			}
+		}
+		printf("%d\n",k-small);
+		t--;
+	}
+	return 0;
+}

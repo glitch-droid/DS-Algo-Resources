@@ -1,0 +1,48 @@
+#include<iostream>
+using namespace std;
+struct food
+{
+    long int ftype;
+    long int ptype;
+};
+
+int main()
+{
+    struct food *f;
+    int t,n,H[100000],count;
+    cin>>t;
+    while(t)
+    {
+        count=0;
+        for(long int j=0;j<10000;j++)
+        {
+            H[j]=0;
+        }
+        cin>>n;
+        f=new food[n];
+        for(long int i=0;i<n;i++)
+        {
+            cin>>f[i].ftype>>f[i].ptype;
+            H[f[i].ftype]++;
+            if(H[f[i].ptype]>0)
+            {
+                H[f[i].ptype]--;
+                continue;
+            }
+            else if(H[f[i].ptype]==0)
+            {
+                continue;
+            }
+        }
+        for(long int j=0;j<10000;j++)
+        {
+            if(j>0)
+            {
+                count+=H[j];
+            }
+        }
+        cout<<count<<endl;
+       
+        t--;
+    }
+}

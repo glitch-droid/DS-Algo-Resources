@@ -1,0 +1,42 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+struct array
+{
+    char A[100];
+};
+
+int main()
+{
+    int n;
+    printf("Enter the number of arrays : ");
+    scanf("%d",&n);
+    struct array ary[n];
+    char temp[100];
+    for(int i=0;i<n;i++)
+    {
+        printf("Enter string  %d : ",i+1);
+        scanf("%s",ary[i].A);
+    }
+     
+    int i,j;
+    for(i=0;i<n-1;i++)
+    {
+        for(j=i+1;j<n;j++)
+        {
+            if(strcmp(ary[i].A,ary[j].A) > 0)
+            {
+                strcpy(temp,ary[i].A);
+                strcpy(ary[i].A,ary[j].A);
+                strcpy(ary[j].A,temp);
+            }
+        }
+    }
+    
+    for(int i=0;i<n;i++)
+        printf("\nEnter string  %d : %s",i+1,ary[i].A);
+    
+    return 0;
+}
+
