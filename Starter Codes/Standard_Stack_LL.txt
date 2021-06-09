@@ -1,0 +1,103 @@
+#include<iostream>
+using namespace std;
+
+
+class node
+{
+    public:
+        int data;
+        node *next;
+};
+
+
+class stack
+{
+    private:
+        node *top;
+        int count=0;
+    	int min=32768;
+    public:
+        stack()
+        {
+            top=NULL;
+        }
+        void push(int x);
+        void pop();
+        void disp();
+        int front();
+        bool isEmpty();
+        int size();
+};
+
+int stack::size(){
+    return count;
+}
+
+void stack::push(int x)
+{
+    node *t;
+    t=new node;
+    t->data=x;
+	if(x<min)
+        min=x;
+    t->next=top;
+    top=t;
+    count++;
+}
+
+bool stack::isEmpty(){
+    if(top==nullptr)
+        return true;
+    else
+        return false;
+}
+
+void stack::pop()
+{
+    node *p;
+    if(top)
+    {
+        count--;
+        p=top;
+        top=top->next;
+        delete p;
+    }
+}
+
+int stack::front()
+{
+    if(top==NULL)
+        return -1;
+    else{
+        return top->data;
+    }
+}
+
+
+void stack::disp()
+{
+    node *p;
+    p=top;
+    while(p)
+    {
+        cout<<p->data<<" ";
+        p=p->next;
+    }
+    cout<<endl;
+}
+
+int main()
+{
+    stack s;
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    s.push(4);
+    s.push(5);
+    cout<<s.size()<<endl;
+    s.disp();
+    
+    s.pop();
+    cout<<s.size()<<endl;
+    s.disp();
+}
