@@ -1,0 +1,87 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+            node* lChild;
+            int data;
+            node* rChild;
+};
+
+void createTree(node* root){
+    int x;
+    queue<node*> q;
+    node* p;
+    node* t;
+    cout<<"Enter Root Value : ";
+    cin>>x;
+    root->data = x;
+    root->lChild = nullptr;
+    root->rChild = nullptr;
+    q.push(root);
+    
+    while(!q.empty()){
+        p=q.front();
+        q.pop();
+        
+        cout<<"Enter LeftChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->lChild = t;
+            q.push(t);
+        }
+        
+        cout<<"Enter RightChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->rChild = t;
+            q.push(t);
+        }
+    }
+}
+
+bool isLeaf(node* p){
+    if(!p->lChild && !p->rChild)
+        return true;
+    else
+        return false;
+}
+
+bool sameLvlLeafUtil(node* root,int lvl, int* leafLvl){
+    if(root==nullptr){
+        return true;
+    }
+    if(!root->lChild && !root->rChild){
+        if(*leafLvl==0){
+            *leafLvl = lvl;
+            return true;
+        }
+        return (*leafLvl == lvl);
+    }
+    
+    return sameLvlLeafUtil(root->lChild,lvl+1,leafLvl) && sameLvlLeafUtil(root->rChild,lvl+1,leafLvl);
+}
+
+int sameLvlLeaf(node* root){
+    int lvl=0, leafLvl=0;
+    return sameLvlLeafUtil(root,lvl,&leafLvl);
+}
+
+int main(){
+    
+    node* root = new node;
+    createTree(root);
+    if(sameLvlLeaf(root))
+        cout<<"YES";
+    else
+        cout<<"NO";
+    return 0;
+}

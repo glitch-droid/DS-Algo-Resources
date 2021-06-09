@@ -1,0 +1,79 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+            node* lChild;
+            int data;
+            node* rChild;
+};
+
+void createTree(node* root){
+    int x;
+    queue<node*> q;
+    node* p;
+    node* t;
+    cout<<"Enter Root Value : ";
+    cin>>x;
+    root->data = x;
+    root->lChild = nullptr;
+    root->rChild = nullptr;
+    q.push(root);
+    
+    while(!q.empty()){
+        p=q.front();
+        q.pop();
+        
+        cout<<"Enter LeftChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->lChild = t;
+            q.push(t);
+        }
+        
+        cout<<"Enter RightChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->rChild = t;
+            q.push(t);
+        }
+    }
+}
+
+void printNodesTwoLvlsUtil(node* root, int lvl){
+    if(!root)
+        return;
+    if(lvl==1)
+        cout<<root->data<<" ";
+    else if(lvl>1){
+        printNodesTwoLvlsUtil(root->lChild,lvl-1);
+        printNodesTwoLvlsUtil(root->rChild,lvl-1);
+    }
+}
+
+void printNodesTwoLvls(node* root, int l, int h){
+    if(!root)
+        return;
+    for(int i=l;i<=h;i++){
+        printNodesTwoLvlsUtil(root,i);
+        cout<<endl;
+    }
+}
+
+int main(){
+    
+    node* root = new node;
+    createTree(root);
+    int l,h;
+    cin>>l>>h;
+    printNodesTwoLvls(root,l,h);
+    return 0;
+}

@@ -1,0 +1,132 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+            node* lChild;
+            int data;
+            node* rChild;
+};
+
+void createTree(node* root){
+    int x;
+    queue<node*> q;
+    node* p;
+    node* t;
+    cout<<"Enter Root Value : ";
+    cin>>x;
+    root->data = x;
+    root->lChild = nullptr;
+    root->rChild = nullptr;
+    q.push(root);
+    
+    while(!q.empty()){
+        p=q.front();
+        q.pop();
+        
+        cout<<"Enter LeftChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->lChild = t;
+            q.push(t);
+        }
+        
+        cout<<"Enter RightChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->rChild = t;
+            q.push(t);
+        }
+    }
+}
+
+void findNode(node* p, node** t,int k){
+    if(p==nullptr)
+        return;
+    if(p->data==k){
+        *t=p;
+        return;
+    }
+    findNode(p->lChild,t,k);
+    findNode(p->rChild,t,k);
+}
+
+
+void findNodesDown(node* p, int k){
+    if(!p)
+        return;
+    if(k==0){
+        cout<<p->data<<" - ";
+        return;
+    }
+    
+    findNodesDown(p->lChild,k-1);
+    findNodesDown(p->rChild,k-1);
+}
+
+
+int findNodesAtVDistance(node* root, node* tNode, int k){
+    if(root==nullptr)
+        return -1;
+    if(root == tNode){
+        findNodesDown(root,k);
+        return 0;
+    }
+    
+    int l = findNodesAtVDistance(root->lChild,tNode,k);
+    if(l!=-1){
+        if(l+1==k){
+            cout<<root->data<<" - ";
+            return 0;
+        }
+        else
+            findNodesDown(root->rChild,k-l-2);
+            
+        return l+1;
+    }
+    
+    int r = findNodesAtVDistance(root->rChild,tNode,k);
+    if(r!=-1){
+        if(r+1==k){
+            cout<<root->data<<" - ";
+            return 0;
+        }
+        else
+            findNodesDown(root->lChild,k-r-2);
+            
+        return r+1;
+    }
+    return -1;
+}
+
+
+
+int main(){
+    
+    node* root = new node;
+    createTree(root);
+    int k,v;
+    cout<<"Enter Target Node value : ";
+    cin>>k;
+    node* tNode ;
+    findNode(root,&tNode,k);
+    if(tNode)
+        cout<<tNode->data;
+    else
+        cout<<"Sorry NOde couldn't be found";
+        
+    cout<<"The distance : ";
+    cin>>v;
+    
+    findNodesAtVDistance(root,tNode,v);
+    
+    return 0;
+}

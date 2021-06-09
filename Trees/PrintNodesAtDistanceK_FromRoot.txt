@@ -1,0 +1,70 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+            node* lChild;
+            int data;
+            node* rChild;
+};
+
+void createTree(node* root){
+    int x;
+    queue<node*> q;
+    node* p;
+    node* t;
+    cout<<"Enter Root Value : ";
+    cin>>x;
+    root->data = x;
+    root->lChild = nullptr;
+    root->rChild = nullptr;
+    q.push(root);
+    
+    while(!q.empty()){
+        p=q.front();
+        q.pop();
+        
+        cout<<"Enter LeftChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->lChild = t;
+            q.push(t);
+        }
+        
+        cout<<"Enter RightChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->rChild = t;
+            q.push(t);
+        }
+    }
+}
+
+void printNodesAtK(node* r, int l,int k){
+    if(!r || l>k)
+        return;
+    else{
+        if(l==k)
+            cout<<r->data<<" ";
+        printNodesAtK(r->lChild,l+1,k);
+        printNodesAtK(r->rChild,l+1,k);
+    }
+}
+
+int main(){
+    
+    node* root = new node;
+    createTree(root);
+    int l;
+    cin>>l;
+    printNodesAtK(root,0,l);
+    return 0;
+}

@@ -1,0 +1,79 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+            node* lChild;
+            int data;
+            node* rChild;
+};
+static int s;
+void createTree(node* root){
+    int x;
+    queue<node*> q;
+    node* p;
+    node* t;
+    cout<<"Enter Root Value : ";
+    cin>>x;
+    root->data = x;
+    root->lChild = nullptr;
+    root->rChild = nullptr;
+    q.push(root);
+    
+    while(!q.empty()){
+        p=q.front();
+        q.pop();
+        
+        cout<<"Enter LeftChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->lChild = t;
+            q.push(t);
+        }
+        
+        cout<<"Enter RightChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->rChild = t;
+            q.push(t);
+        }
+    }
+}
+
+void preOrder(node* p){
+    if(p){
+        cout<<p->data<<" ";
+        preOrder(p->lChild);
+        preOrder(p->rChild);
+    }else{
+        return;
+    }
+}
+
+void preOrderDiff(node* p,int x){
+    if(p){
+        if((p->lChild && p->lChild->data==x) || (p->rChild && p->rChild->data==x))
+            s+=p->data;
+        preOrderDiff(p->lChild,x);
+        preOrderDiff(p->rChild,x);
+    }else{
+        return;
+    }
+}
+
+int main(){
+    
+    node* root = new node;
+    createTree(root);
+    //preOrder(root);
+    preOrderDiff(root,2);
+    cout<<s;
+}

@@ -1,0 +1,101 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+            node* lChild;
+            int data;
+            node* rChild;
+};
+
+void createTree(node* root){
+    int x;
+    queue<node*> q;
+    node* p;
+    node* t;
+    cout<<"Enter Root Value : ";
+    cin>>x;
+    root->data = x;
+    root->lChild = nullptr;
+    root->rChild = nullptr;
+    q.push(root);
+    
+    while(!q.empty()){
+        p=q.front();
+        q.pop();
+        
+        cout<<"Enter LeftChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->lChild = t;
+            q.push(t);
+        }
+        
+        cout<<"Enter RightChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->rChild = t;
+            q.push(t);
+        }
+    }
+}
+
+bool tracePath(node* root,node* leaf){
+    if(root==nullptr)
+        return false;
+    
+    if(root==leaf || tracePath(root->lChild,leaf) || tracePath(root->rChild,leaf)){
+        cout<<root->data<<" ";
+        return true;
+    }
+    return false;
+}
+
+void getTargetLeaf(node* Root, int *sum_max,int curr_sum,node** leaf){
+    if(Root==nullptr)
+        return;
+    
+    curr_sum = curr_sum +  Root->data;
+    if(Root->lChild == nullptr && Root->rChild == nullptr)
+    {
+        if(curr_sum> *sum_max)
+            {
+                *sum_max = curr_sum;
+                *leaf = Root;
+            }
+    }
+    
+    getTargetLeaf(Root->lChild,sum_max,curr_sum,leaf);
+    getTargetLeaf(Root->rChild,sum_max,curr_sum,leaf);
+}
+
+int findMaxSum(node* root){
+    if(root==nullptr)
+        return 0;
+    node* trgt_leaf;
+    int sum = INT_MIN;
+    
+    getTargetLeaf(root,&sum,0,&trgt_leaf);
+    
+    tracePath(root,trgt_leaf);
+    
+    return sum;
+}
+
+int main(){
+    
+    node* root = new node;
+    createTree(root);
+    int sum_max = findMaxSum(root);
+    cout<<sum_max;
+    return 0;
+    
+}

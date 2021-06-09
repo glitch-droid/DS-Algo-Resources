@@ -1,0 +1,80 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+            node* lChild;
+            int data;
+            node* rChild;
+};
+
+void createTree(node* root){
+    int x;
+    queue<node*> q;
+    node* p;
+    node* t;
+    cout<<"Enter Root Value : ";
+    cin>>x;
+    root->data = x;
+    root->lChild = nullptr;
+    root->rChild = nullptr;
+    q.push(root);
+    
+    while(!q.empty()){
+        p=q.front();
+        q.pop();
+        
+        cout<<"Enter LeftChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->lChild = t;
+            q.push(t);
+        }
+        
+        cout<<"Enter RightChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->rChild = t;
+            q.push(t);
+        }
+    }
+}
+
+void preOrder(node* p){
+    if(p){
+        cout<<p->data<<" ";
+        preOrder(p->lChild);
+        preOrder(p->rChild);
+    }else{
+        return;
+    }
+}
+
+node* makeTree(int A[],node* head, int i, int n){
+    if(i<n){
+        node* t = new node;
+        t->data = A[i];
+        t->lChild=nullptr;
+        t->rChild=nullptr;
+        head = t;
+        
+        head->lChild = makeTree(A,head->lChild,2*i+1,n);
+        head->rChild = makeTree(A,head->rChild,2*i+2,n);
+    }
+    return head;
+}
+
+int main(){
+    int arr[]={1,2,3,4,5,6};
+    //createTree(root);
+    node* root = makeTree(arr, root,0,sizeof(arr)/sizeof(arr[0]));
+    preOrder(root);
+}

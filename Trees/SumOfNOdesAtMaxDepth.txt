@@ -1,0 +1,85 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+            node* lChild;
+            int data;
+            node* rChild;
+};
+
+void createTree(node* root){
+    int x;
+    queue<node*> q;
+    node* p;
+    node* t;
+    cout<<"Enter Root Value : ";
+    cin>>x;
+    root->data = x;
+    root->lChild = nullptr;
+    root->rChild = nullptr;
+    q.push(root);
+    
+    while(!q.empty()){
+        p=q.front();
+        q.pop();
+        
+        cout<<"Enter LeftChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->lChild = t;
+            q.push(t);
+        }
+        
+        cout<<"Enter RightChild of "<<p->data<<" : ";
+        cin>>x;
+        if(x!=-1){
+            t=new node;
+            t->data = x;
+            t->lChild = nullptr;
+            t->rChild = nullptr;
+            p->rChild = t;
+            q.push(t);
+        }
+    }
+}
+
+int height(node* p){
+    if(p==NULL)
+        return 0;
+    int l = height(p->lChild);
+    int r = height(p->rChild);
+    return (max(l,r) + 1);
+}
+
+void maxDepthSumUtil(node* root, int *sum, int h){
+    if(root==NULL)
+        return;
+    if(h==1)
+        *sum += root->data;
+    else{
+        maxDepthSumUtil(root->lChild,sum,h-1);
+        maxDepthSumUtil(root->rChild,sum,h-1);
+    }
+}
+
+int maxDepthSum(node* root){
+    if(root==NULL)
+        return 0;
+    int max_sum = 0;
+    int h = height(root);
+    maxDepthSumUtil(root,&max_sum,h);
+    return max_sum;
+}
+
+int main(){
+    
+    node* root = new node;
+    createTree(root);
+    cout<<maxDepthSum(root);
+    return 0;
+}
